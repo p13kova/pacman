@@ -72,6 +72,7 @@
             this.load.image('tiles', 'assets/pacman-tiles.png');
             this.load.spritesheet('pacman', 'assets/pacman.png', 32, 32);
             this.load.tilemap('map', 'assets/pacman-map.json', null, Phaser.Tilemap.TILED_JSON);
+	    this.load.image('coin','assets/coin.png');
 
             //  Needless to say, graphics (C)opyright Namco
 
@@ -87,6 +88,7 @@
             this.dots = this.add.physicsGroup();
 
             this.map.createFromTiles(7, this.safetile, 'dot', this.layer, this.dots);
+            this.map.createFromTiles(35, this.safetile, 'coin', this.layer, this.dots);
 
             //  The dots will need to be offset by 6px to put them back in the middle of the grid
             this.dots.setAll('x', 6, false, false, 1);
@@ -119,6 +121,11 @@
 			pacman.angle = 90;
 			pacman.alpha = 0.4;
 		    }
+		var sprite = game.add.sprite(417, 465, 'coin');
+	    
+	    game.add.tween(sprite).to( { alpha: 0 }, 30000, Phaser.Easing.Linear.None, true);
+	   
+        
 
         },
 
@@ -251,7 +258,21 @@
             {
                 this.dots.callAll('revive');
             }
+		
 
+        },
+	     eatCoin: function(pacman,coin){
+		     
+            coin.kill();
+		     
+	    this.score+=15;
+            this.scoreText.text= 'Score: ' + this.score;
+	    var audio = new Audio('assets/bonus'); 
+            audio.play()
+            if(this.coins.total===0)
+            {
+                this.coins.callAll('revive');
+            }
         },
 
         update: function () {
