@@ -115,10 +115,7 @@
             this.scoreText = game.add.text(0, 500, 'Score: 0', { fontSize: '34px Arial', fill: 'white' });
             lives = game.add.group();
             game.add.text(game.world.width - 340, 500, 'Lives : ', { fontSize: '34px Arial', fill: 'white' });
-            this.scoreTime = game.add.text(122, 45, "Seconds: "+Math.floor(this.game.time.totalElapsedSeconds()),
-                    { font: "12px", 
-                     fill: "#ffffff" 
-                    });
+            this.scoreTime = game.add.text(122, 45, "Seconds: "this.game.time.totalElapsedSeconds(),{ font: "12px", fill: "#ffffff" });
             for (var i = 0; i < 3; i++) 
 		    {
 			var pacman = lives.create(game.world.width - 235 + (30 * i), 517, 'pacman');
